@@ -2,7 +2,7 @@
 # To learninf the CUDA
 
 ## Setting CMake
-cmake_minimum_required(3.3)
+cmake_minimum_required(VERSION 3.3)
 find_package(CUDA QUIET REQUIRED)
 
 project(cuda-learn)
