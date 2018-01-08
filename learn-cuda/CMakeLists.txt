@@ -3,15 +3,13 @@
 
 ## Setting CMake
 cmake_minimum_required(VERSION 3.3)
-find_package(CUDA QUIET REQUIRED)
+find_package(FCUDA QUIET REQUIRED)
 
-project(cuda-learn)
-
-enable_language(C C++ CUDA)
+project(cuda-learn C C++ CUDA)
 
 include_directories(include)
 
-## hello for CUDA, and output the GPUs' infos
+## hello for CUDA, and output the GPUs' infosn
 cuda_add_executable(hello-cuda source/hello.cu)
 
 #add_executable(c-example source/c-example.c)
