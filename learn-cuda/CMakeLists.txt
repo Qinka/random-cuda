@@ -3,8 +3,11 @@
 
 ## Setting CMake
 cmake_minimum_required(VERSION 3.3)
+find_package(CUDA)
 
-project(cuda-learn C C++ CUDA)
+project(cuda-learn)
+
+
 
 include_directories(include)
 
