@@ -33,7 +33,6 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int _si
   int threadsPerBlock;
   size_t size = _size * sizeof(uint8_t);
   int bsX = 0;
-  int bsY = 0;
 
   // select codes
   /*rtCode = cudaSetDevice(0);
@@ -82,7 +81,7 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int _si
   // run
 
   bsX = (size / prop.maxThreadsPerBlock) + 1;
-  blocksize = min(prop.maxGridSize[0],bsX);
+  blocksize = min((size_t)prop.maxGridSize[0],bsX);
   threadsPerBlock = min(prop.maxThreadsPerBlock,size);
   linearCombinKernel<<<blocksize,threadsPerBlock>>>(coe1,dm1,coe2,dm2,_size,dm3);
 
