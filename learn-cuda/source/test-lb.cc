@@ -29,19 +29,19 @@ int main(int argc, char* argv[]) {
 
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
-      printf("%u ",m1[i*col+j]);
+      printf("%3u ",m1[i*col+j]);
     printf("\n");
   }
   printf("+\n");
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
-      printf("%u ",m2[i*col+j]);
+      printf("%3u ",m2[i*col+j]);
     printf("\n");
   }
   printf("=\n");
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
-      printf("%u ",m3[i*col+j]);
+      printf("%3u ",m3[i*col+j]);
     printf("\n");
   }
   return 0;
