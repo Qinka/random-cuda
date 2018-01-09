@@ -4,8 +4,8 @@
  */
 
 
-#ifndef _LINEAR_COMBINATION_H_
-#define _LINEAR_COMBINATION_H_
+#ifndef _LINEAR_COMBINATION_C_
+#define _LINEAR_COMBINATION_C_
 
 #include <linear-combination.h>
 #include <math.h>
@@ -113,4 +113,4 @@ Error:
 }
 
 
-#endif // _LINEAR_COMBINATION_H_
+#endif // _LINEAR_COMBINATION_C_
