@@ -14,27 +14,24 @@
 
 
 __global__
-void linearCombinKernel(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row, int col, uint8_t* m3) {
+void linearCombinKernel(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int size, uint8_t* m3) {
   int idxX = blockIdx.x * blockDim.x + threadIdx.x;
-  int idxY = blockIdx.y * blockDim.y + threadIdx.y;
   int stdX = blockDim.x * gridDim.x;
-  int stdY = blockDim.y * gridDim.y;
-  for(int i = idxX; i < row; i += stdX)
-    for(int j = idxY; j < col; j += stdY) {
-      float tmp = coe1 * m1[i*col + j] + coe2 * m2[i*col + j];
-      m3[i*col+j] = (uint8_t)(fmaxf(fminf(tmp,255),0));
-    }
+  for(int i = idxX; i < size; i += stdX) {
+    float tmp = coe1 * m1[i] + coe2 * m2[i];
+    m3[i] = (uint8_t)(fmaxf(fminf(tmp,255),0));
+  }
 }
 
 
-int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row, int col, uint8_t* m3) {
+int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int _size, uint8_t* m3) {
   uint8_t* dm1 = 0;
   uint8_t* dm2 = 0;
   uint8_t* dm3 = 0;
   cudaError_t rtCode;
-  dim3 blocksize;
-  dim3 threadsPerBlock;
-  size_t size = col * row  * sizeof(uint8_t);
+  int blocksize;
+  int threadsPerBlock;
+  size_t size = _size * sizeof(uint8_t);
   int bsX = 0;
   int bsY = 0;
 
@@ -83,11 +80,11 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
   }
 
   // run
-  bsX = (row / prop.maxThreadsDim[0]) + 1;
-  bsY = (col / prop.maxThreadsDim[1]) + 1;
-  blocksize = dim3(min(prop.maxGridSize[0],bsX),min(prop.maxGridSize[1],bsY));
-  threadsPerBlock = dim3(min(prop.maxThreadsDim[0],row),min(prop.maxThreadsDim[1],col));
-  linearCombinKernel<<<blocksize,threadsPerBlock>>>(coe1,dm1,coe2,dm2,row,col,dm3);
+
+  bsX = (size / prop.maxThreadsPerBlock) + 1;
+  blocksize = min(prop.maxGridSize[0],bsX);
+  threadsPerBlock = min(prop.maxThreadsPerBlock,size);
+  linearCombinKernel<<<blocksize,threadsPerBlock>>>(coe1,dm1,coe2,dm2,_size,dm3);
 
   // check error
   rtCode = cudaGetLastError();
