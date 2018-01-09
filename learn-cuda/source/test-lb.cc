@@ -11,13 +11,13 @@ int main() {
 
   for (int i = 0; i < 2; ++i) {
     for (int j = 0; j < 3; ++j)
-      printf("%u ",m3[i*3+j]);
+      printf("%u ",m1[i*3+j]);
     printf("\n");
   }
   printf("+\n");
   for (int i = 0; i < 2; ++i) {
     for (int j = 0; j < 3; ++j)
-      printf("%u ",m3[i*3+j]);
+      printf("%u ",m2[i*3+j]);
     printf("\n");
   }
   printf("=\n");

@@ -34,55 +34,60 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
   cudaError_t rtCode;
   dim3 blocksize;
   dim3 threadsPerBlock;
+  size_t size = col * row  * sizeof(uint8_t);
+  int bsX = 0;
+  int bsY = 0;
 
   // select codes
-  rtCode = cudaSetDevice(0);
+  /*rtCode = cudaSetDevice(0);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaSetDevice failed!  Do you have a CUDA-capable GPU installed?");
     goto Error;
-  }
+    }*/
 
   // get prop
   cudaDeviceProp prop;
-  rtCode != cudaGetDeviceProperties(&prop,0);
+  rtCode = cudaGetDeviceProperties(&prop,0);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "Fail to get the device infos");
     goto Error;
   }
 
   // malloc
-  rtCode = cudaMalloc((void**)&dm1, col * row  * sizeof(uint8_t));
+  rtCode = cudaMalloc((void**)&dm1, size);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMalloc failed!(m1)");
     goto Error;
   }
-  rtCode = cudaMalloc((void**)&dm2, col * row  * sizeof(uint8_t));
+  rtCode = cudaMalloc((void**)&dm2,size);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMalloc failed!(m2)");
     goto Error;
   }
-  rtCode = cudaMalloc((void**)&dm3, col * row  * sizeof(uint8_t));
+  rtCode = cudaMalloc((void**)&dm3, size);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMalloc failed!(m3)");
     goto Error;
   }
 
   // copy
-  rtCode = cudaMemcpy(dm1, m1, col * row * sizeof(uint8_t), cudaMemcpyHostToDevice);
+  rtCode = cudaMemcpy(dm1, m1, size, cudaMemcpyHostToDevice);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMemcpy failed!(m1)");
     goto Error;
   }
-  rtCode = cudaMemcpy(dm2, m2, col * row * sizeof(uint8_t), cudaMemcpyHostToDevice);
+  rtCode = cudaMemcpy(dm2, m2, size, cudaMemcpyHostToDevice);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMemcpy failed!(m2)");
     goto Error;
   }
 
   // run
-  blocksize = dim3(prop.maxGridSize[0],prop.maxGridSize[1]);
-  threadsPerBlock = dim3(prop.maxThreadsDim[0],prop.maxThreadsDim[1]);
-  linearCombinKernel<<<blocksize,threadsPerBlock>>>(coe1,m1,coe2,m2,row,col,m3);
+  bsX = (row / prop.maxThreadsDim[0]) + 1;
+  bsY = (col / prop.maxThreadsDim[1]) + 1;
+  blocksize = dim3(min(prop.maxGridSize[0],bsX),min(prop.maxGridSize[1],bsY));
+  threadsPerBlock = dim3(min(prop.maxThreadsDim[0],row),min(prop.maxThreadsDim[1],col));
+  linearCombinKernel<<<blocksize,threadsPerBlock>>>(coe1,dm1,coe2,dm2,row,col,dm3);
 
   // check error
   rtCode = cudaGetLastError();
@@ -99,9 +104,9 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
   }
 
   // copy
-  rtCode = cudaMemcpy(m3, dm3, row * col * sizeof(int), cudaMemcpyDeviceToHost);
+  rtCode = cudaMemcpy(m3, dm3, size, cudaMemcpyDeviceToHost);
   if (rtCode != cudaSuccess) {
-    fprintf(stderr, "cudaMemcpy failed!(m3)");
+    fprintf(stderr, "cudaMemcpy failed!(m3),%d",rtCode);
     goto Error;
   }
 
