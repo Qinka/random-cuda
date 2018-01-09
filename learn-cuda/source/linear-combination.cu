@@ -10,6 +10,7 @@
 #include <linear-combination.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdint.h>
 
 
 __global__
