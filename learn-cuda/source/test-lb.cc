@@ -1,29 +1,36 @@
 
 #include <linear-combination.h>
 #include <stdio.h>
+#include <string.h>
 
-int main() {
-  uint8_t m1[] = {1,2,3,4,5,6};
-  uint8_t m2[] = {6,5,4,3,2,1};
-  uint8_t m3[] = {9,9,9,9,9,9};
+int main(int argc, char* argv[]) {
+  int row = 2;
+  int col = 3;
+  if(argc >= 2) {
+    sscanf(argv[0],"%d",&row);
+    sscanf(argv[1],"%d",&col);
+  }
+  uint8_t* m1 = new uint8_t[row * col];
+  uint8_t* m2 = new uint8_t[row * col];
+  uint8_t* m3 = new uint8_t[row * col];
 
-  linear_combination(1,m1,1,m2,2,3,m3);
+  linear_combination(1,m1,1,m2,row,col,m3);
 
-  for (int i = 0; i < 2; ++i) {
-    for (int j = 0; j < 3; ++j)
-      printf("%u ",m1[i*3+j]);
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      printf("%u ",m1[i*col+j]);
     printf("\n");
   }
   printf("+\n");
-  for (int i = 0; i < 2; ++i) {
-    for (int j = 0; j < 3; ++j)
-      printf("%u ",m2[i*3+j]);
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      printf("%u ",m2[i*col+j]);
     printf("\n");
   }
   printf("=\n");
-  for (int i = 0; i < 2; ++i) {
-    for (int j = 0; j < 3; ++j)
-      printf("%u ",m3[i*3+j]);
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      printf("%u ",m3[i*col+j]);
     printf("\n");
   }
   return 0;

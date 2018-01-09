@@ -19,3 +19,6 @@ cuda_add_library(linear-combination-gpu source/linear-combination.cu)
 
 add_executable(test-lb source/test-lb.cc)
 target_link_libraries(test-lb linear-combination)
+
+add_executable(test-lb-gpu source/test-lb.cc)
+target_link_libraries(test-lb-gpu linear-combination-gpu)
