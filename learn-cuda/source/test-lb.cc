@@ -24,10 +24,10 @@ int main(int argc, char* argv[]) {
 
   srand((int)time(0));
 
-  for (int i = 0; i < row * col; ++i)
-      m1[i] = rand() % 0xFF;
-      m2[i] = rand() % 0xFF;
-    }
+  for (int i = 0; i < row * col; ++i) {
+    m1[i] = rand() % 0xFF;
+    m2[i] = rand() % 0xFF;
+  }
 
 
   linear_combination(coe1,m1,coe2,m2,row * col,m3);
