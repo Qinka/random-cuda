@@ -42,7 +42,7 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
 
   // get prop
   cudaDeviceProp prop;
-  rtCode != cudaGetDeviceProperties(&prop,i);
+  rtCode != cudaGetDeviceProperties(&prop,0);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "Fail to get the device infos");
     goto Error;
@@ -66,21 +66,21 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
   }
 
   // copy
-  rtCode = cudaMemcpy(dm1, m1, col * row * sizeof(uint_8), cudaMemcpyHostToDevice);
+  rtCode = cudaMemcpy(dm1, m1, col * row * sizeof(uint8_t), cudaMemcpyHostToDevice);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMemcpy failed!(m1)");
     goto Error;
   }
-  rtCode = cudaMemcpy(dm2, m2, col * row * sizeof(uint_8), cudaMemcpyHostToDevice);
+  rtCode = cudaMemcpy(dm2, m2, col * row * sizeof(uint8_t), cudaMemcpyHostToDevice);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMemcpy failed!(m2)");
-    goto Erm rror;
+    goto Errror;
   }
 
   // run
-  dim3 blocksize (prop.maxGridSize,prop.maxGridSize);
-  dim3 threadsPerBlock(prop.maxThreadsDim,prop.maxThreadsDim);
-  linearCombinKernel<<<blocksize,threadsPerBlock>>>(dev_c, dev_a, dev_b);
+  dim3 blocksize (prop.maxGridSize[0],prop.maxGridSize[1]);
+  dim3 threadsPerBlock(prop.maxThreadsDim[1],prop.maxThreadsDim[1]);
+  linearCombinKernel<<<blocksize,threadsPerBlock>>>(coe1,m1,coe2,m2,row,col,m3);
 
   // check error
   rtCode = cudaGetLastError();
@@ -97,7 +97,7 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
   }
 
   // copy
-  rtCode = cudaMemcpy(m3, dm3, size * sizeof(int), cudaMemcpyDeviceToHost);
+  rtCode = cudaMemcpy(m3, dm3, row * col * sizeof(int), cudaMemcpyDeviceToHost);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMemcpy failed!(m3)");
     goto Error;
@@ -107,7 +107,7 @@ Error:
     cudaFree(dm1);
     cudaFree(dm2);
     cudaFree(dm3);
-    return cudaStatus;
+    return rtCode;
 }
 
 
