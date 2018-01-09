@@ -1,17 +1,17 @@
 
+
 /**
  * linear combination for 2-D matrix
  * Copyright 2018 (C) Johann Lee <me@qinka.pro>
  */
 
 
-#ifndef _LINEAR_COMBINATION_H_
-#define _LINEAR_COMBINATION_H_
+#ifndef _LINEAR_COMBINATION_C_
+#define _LINEAR_COMBINATION_C_
 
 #include <linear-combination.h>
 #include <math.h>
 #include <stdint.h>
-
 
 int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row, int col, uint8_t* m3) {
   for (int i = 0; i < row; i++)
@@ -23,4 +23,4 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
 }
 
 
-#endif // _LINEAR_COMBINATION_H_
+#endif // _LINEAR_COMBINATION_C_
