@@ -32,6 +32,8 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
   uint8_t* dm2 = 0;
   uint8_t* dm3 = 0;
   cudaError_t rtCode;
+  dim3 blocksize;
+  dim3 threadsPerBlock;
 
   // select codes
   rtCode = cudaSetDevice(0);
@@ -74,12 +76,12 @@ int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row
   rtCode = cudaMemcpy(dm2, m2, col * row * sizeof(uint8_t), cudaMemcpyHostToDevice);
   if (rtCode != cudaSuccess) {
     fprintf(stderr, "cudaMemcpy failed!(m2)");
-    goto Errror;
+    goto Error;
   }
 
   // run
-  dim3 blocksize (prop.maxGridSize[0],prop.maxGridSize[1]);
-  dim3 threadsPerBlock(prop.maxThreadsDim[1],prop.maxThreadsDim[1]);
+  blocksize = dim3(prop.maxGridSize[0],prop.maxGridSize[1]);
+  threadsPerBlock = dim3(prop.maxThreadsDim[0],prop.maxThreadsDim[1]);
   linearCombinKernel<<<blocksize,threadsPerBlock>>>(coe1,m1,coe2,m2,row,col,m3);
 
   // check error

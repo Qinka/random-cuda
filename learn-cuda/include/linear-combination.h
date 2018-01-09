@@ -25,7 +25,7 @@
  *
  * m3 = coe1 * m1 + coe2 * m2
  */
-int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row, int col, uint8_t* m3);
+extern "C" int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int row, int col, uint8_t* m3);
 
 
 #endif // _LINEAR_COMBINATION_H_
