@@ -15,6 +15,7 @@ int main() {
     printf("\tConcurrent kernels: %d\n",prop.concurrentKernels);
     printf("\tIs multi-GPU board: %s\n",prop.isMultiGpuBoard?"yes":"no");
     printf("\tCompute capability: %d.%d\n",prop.major,prop.minor);
+    printf("\tMax Grid size: %d\n", *prop.maxGridSize);
     printf("\tMax thread dim: %d\n",*prop.maxThreadsDim);
     printf("\tMax thread per block: %d\n", prop.maxThreadsPerBlock);
     printf("\tMax thread per multiprocessor: %d\n",prop.maxThreadsPerMultiProcessor);
