@@ -14,7 +14,7 @@ include_directories(include)
 ## hello for CUDA, and output the GPUs' infosn
 cuda_add_executable(hello-cuda source/hello.cu)
 
-add_library(qinkalc-gpu SHARED source/linear-combination.cc)
+add_library(qinkalc SHARED source/linear-combination.cc)
 cuda_add_library(qinkalc-gpu SHARED source/linear-combination.cu)
 
 add_executable(test-lb source/test-lb.cc)
