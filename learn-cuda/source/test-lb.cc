@@ -25,13 +25,22 @@ int main(int argc, char* argv[]) {
   srand((int)time(0));
 
   for (int i = 0; i < row * col; ++i) {
-    m1[i] = rand() % 0xFF;
-    m2[i] = rand() % 0xFF;
+    m1[i] = 1;
+    m2[i] = 2;
+    m3[i] = 5;
   }
 
 
   linear_combination(coe1,m1,coe2,m2,row * col,m3);
 
+  
+  for (int i = 0; i < row; ++i) 
+    for (int j = 0; j < col; ++j)
+      if (m3[i*col+j] != 1 * coe1 + 2 * coe2)
+        printf("(%d,%d) = %u is error\n",i,j,m3[i*col+j]);
+ 
+
+  /*
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
       printf("%3u ",m1[i*col+j]);
@@ -48,6 +57,6 @@ int main(int argc, char* argv[]) {
     for (int j = 0; j < col; ++j)
       printf("%3u ",m3[i*col+j]);
     printf("\n");
-  }
+    }*/
   return 0;
 }
