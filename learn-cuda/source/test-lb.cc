@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
   }
 
 
-  linear_combination(coe1,m1,coe2,m2,row * col,m3);
+  linearCombination(coe1,m1,coe2,m2,row * col,m3);
 
   
   for (int i = 0; i < row; ++i) 

@@ -13,7 +13,7 @@
 #include <math.h>
 #include <stdint.h>
 
-int linear_combination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int size, uint8_t* m3) {
+int linearCombination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int size, uint8_t* m3) {
   for (int i = 0; i < size; i++) {
     float tmp = coe1 * m1[i] + coe2 * m2[i];
     m3[i] = (uint8_t)(fmaxf(fminf(tmp,255),0));
