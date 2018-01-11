@@ -9,6 +9,15 @@
 
 #include <stdint.h>
 
+#ifdef WIN32
+# define EXPORT_API  _declspec(dllexport)
+#else
+# define EXPORT_API   
+#endif
+
+
+
+
 // Error codes
 #define Success 0
 
@@ -25,7 +34,7 @@
  *
  * m3 = coe1 * m1 + coe2 * m2
  */
-extern "C" int linearCombination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int _size, uint8_t* m3);
+extern "C" EXPORT_API int linearCombination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int _size, uint8_t* m3);
 
 
 #endif // _LINEAR_COMBINATION_H_
