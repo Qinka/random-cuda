@@ -3,8 +3,8 @@
 
 ## Setting CMake
 cmake_minimum_required(VERSION 3.3)
-find_package(CUDA REQUIRED)s
-find_package(OpenCV REQUIRED )
+find_package(CUDA REQUIRED)
+find_package(OpenCV REQUIRED)
 
 
 project(cuda-learn)
