@@ -14,7 +14,7 @@ using std::istringstream;
 
 int main(int argc, char* argv[]) {
   if (argc < 3) {
-    cout << "usage: " << argv[0] << " <img-in1> <img-in2> <img-out> [c1] [c2]" << endl;
+    cerr << "usage: " << argv[0] << " <img-in1> <img-in2> <img-out> [c1] [c2]" << endl;
     return -1;
   }
   cv::Mat image1 = cv::imread(argv[1],cv::IMREAD_UNCHANGED);
@@ -31,6 +31,27 @@ int main(int argc, char* argv[]) {
   }
 
   int rt = linearCombination(c1,image1.data,c2,image2.data,image1.cols * image1.rows,out.data);
+
+  int row = image1.rows;
+  int col = image1.cols;
+
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      printf("%3u ",image1.data[i*col+j]);
+    printf("\n");
+  }
+  printf("+\n");
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      printf("%3u ",image2.data[i*col+j]);
+    printf("\n");
+  }
+  printf("=\n");
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      printf("%3u ",out.data[i*col+j]);
+    printf("\n");
+  }
 
   cerr << "rt code: " << rt <<endl;
   cv::imwrite(argv[3],out);
