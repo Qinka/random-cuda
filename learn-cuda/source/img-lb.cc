@@ -4,13 +4,13 @@
 #include <opencv2/opencv.hpp>
 
 #include <iostream>
-#include <string.h>
+#include <sstream>
 #include <linear-combination.h>
 
 using std::cout;
 using std::cerr;
 using std::endl;
-
+using std::istringstream;
 
 int main(int argc, char* argv[]) {
   if (argc < 3) {
@@ -24,8 +24,10 @@ int main(int argc, char* argv[]) {
   float c1 = 1;
   float c2 = 2;
   if (argc >= 6) {
-    sscanf(argv[4],"%f",&c1);
-    sscanf(argv[5],"%f",&c2);
+    istringstream sc1(argv[4]);
+    istringstream sc2(argv[4]);
+    sc1 >> c1;
+    sc2 >> c2;
   }
   linearCombination(c1,image1.data,c2,image2.data,image1.cols * image1.rows,out.data);
   cv::imwrite(argv[3],out);
