@@ -11,6 +11,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 using std::istringstream;
+using std::setw;
 
 int main(int argc, char* argv[]) {
   if (argc < 3) {
