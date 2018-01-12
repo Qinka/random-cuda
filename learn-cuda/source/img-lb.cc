@@ -1,14 +1,14 @@
 
 
 // OpenCV Headers
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
+#inlcude <opencv2/opencv.hpp>
 
 #include <iostream>
 #include <cstring>
 
 using std::cout;
 using std::cerr;
+using std::endl;
 
 
 int main(int argc, char* argv[]) {
@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
   }
   cv::Mat image1 = cv::imread(argv[1],cv::IMREAD_UNCHANGED);
   cv::Mat image2 = cv::imread(argv[2],cv::IMREAD_UNCHANGED);
-  cv::resize(image2,image2,image1.size);
+  cv::resize(image2,image2,cv::Size(image1.row(),image1.col()x));
   cv::Mat out = image1.clone();
   float c1 = 1;
   float c2 = 2;
