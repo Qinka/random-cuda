@@ -52,9 +52,10 @@ int main(int argc, char* argv[]) {
   float c2 = 1;
   if (argc >= 6) {
     istringstream sc1(argv[4]);
-    istringstream sc2(argv[4]);
+    istringstream sc2(argv[5]);
     sc1 >> c1;
     sc2 >> c2;
+    cerr << c1 << " " << c2;
   }
 
   int rt = linearCombination(c1,image1.data,c2,image2.data,row * col,out.data);
