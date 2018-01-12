@@ -13,6 +13,7 @@ using std::cerr;
 using std::endl;
 using std::istringstream;
 using std::setw;
+using std::dec;
 
 int main(int argc, char* argv[]) {
   if (argc < 3) {
