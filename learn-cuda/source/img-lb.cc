@@ -4,6 +4,7 @@
 #include <opencv2/opencv.hpp>
 
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <linear-combination.h>
 
@@ -41,13 +42,14 @@ int main(int argc, char* argv[]) {
       cout << setw(4) << image1.data[i*col+j];
     cout << endl;
   }
-  printf("+\n");
+  count << " + " << endl;
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
       cout << setw(4) << image2.data[i*col+j];
     cout << endl;
   }
-  printf("=\n");
+
+  count << " + " << endl;
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
       cout << setw(4) << out.data[i*col+j];
