@@ -37,20 +37,20 @@ int main(int argc, char* argv[]) {
 
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
-      printf("%3u ",image1.data[i*col+j]);
-    printf("\n");
+      cout << setw(4) << image1.data[i*col+j];
+    cout << endl;
   }
   printf("+\n");
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
-      printf("%3u ",image2.data[i*col+j]);
-    printf("\n");
+      cout << setw(4) << image2.data[i*col+j];
+    cout << endl;
   }
   printf("=\n");
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
-      printf("%3u ",out.data[i*col+j]);
-    printf("\n");
+      cout << setw(4) << out.data[i*col+j];
+    cout << endl;
   }
 
   cerr << "rt code: " << rt <<endl;
