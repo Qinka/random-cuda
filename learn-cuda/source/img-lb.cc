@@ -28,6 +28,8 @@ int main(int argc, char* argv[]) {
   int row = image1.rows * image1.channels();
   int col = image1.cols * image1.channels();
 
+  cerr << rows << " " << col << " " << image1.channels() << endl;
+
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
       cout << setw(4) << dec << (int)image1.data[i*col+j];
