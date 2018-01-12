@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
     cerr << "The number of channals should be same!" << endl;
     return -1;
   }
-  cv::resize(image2,image2,Size(image1.rows,image1.cols));
+  cv::resize(image2,image2,cv::Size(image1.rows,image1.cols));
 
 
   int row = image1.rows;
