@@ -23,6 +23,21 @@ int main(int argc, char* argv[]) {
   cv::Mat image1 = cv::imread(argv[1],cv::IMREAD_UNCHANGED);
   cv::Mat image2 = cv::imread(argv[2],cv::IMREAD_UNCHANGED);
   cv::resize(image2,image2,cv::Size(image1.rows,image1.cols));
+
+
+
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      cout << setw(4) << dec << (int)image1.data[i*col+j];
+    cout << endl;
+  }
+  cout << " + " << endl;
+  for (int i = 0; i < row; ++i) {
+    for (int j = 0; j < col; ++j)
+      cout << setw(4) << dec << (int)image2.data[i*col+j];
+    cout << endl;
+  }
+
   cv::Mat out = image1.clone();
   float c1 = 1;
   float c2 = 2;
@@ -38,18 +53,6 @@ int main(int argc, char* argv[]) {
 
   int rt = linearCombination(c1,image1.data,c2,image2.data,row * col,out.data);
 
-
-  for (int i = 0; i < row; ++i) {
-    for (int j = 0; j < col; ++j)
-      cout << setw(4) << dec << (int)image1.data[i*col+j];
-    cout << endl;
-  }
-  cout << " + " << endl;
-  for (int i = 0; i < row; ++i) {
-    for (int j = 0; j < col; ++j)
-      cout << setw(4) << dec << (int)image2.data[i*col+j];
-    cout << endl;
-  }
 
   cout << " + " << endl;
   for (int i = 0; i < row; ++i) {
