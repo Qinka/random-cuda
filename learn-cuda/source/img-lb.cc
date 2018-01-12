@@ -22,12 +22,11 @@ int main(int argc, char* argv[]) {
   }
   cv::Mat image1 = cv::imread(argv[1],cv::IMREAD_UNCHANGED);
   cv::Mat image2 = cv::imread(argv[2],cv::IMREAD_UNCHANGED);
-  if (image1.cols != image2.cols ||
-      image1.rows != image2.rows ||
-      image1.channels() != image2.channels()) {
-    cerr << "shape should be same!" << endl;
+  if (image1.channels() != image2.channels()) {
+    cerr << "The number of channals should be same!" << endl;
     return -1;
   }
+  cv::resize(image2,image2,Size(image1.rows,image1.cols));
 
 
   int row = image1.rows;
