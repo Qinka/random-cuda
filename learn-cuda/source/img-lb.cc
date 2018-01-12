@@ -25,8 +25,8 @@ int main(int argc, char* argv[]) {
   cv::resize(image2,image2,cv::Size(image1.rows,image1.cols));
 
 
-  int row = image1.rows * image1.channels();
-  int col = image1.cols;
+  int row = image1.rows;
+  int col = image1.cols * image1.channels();
 
   cerr << row << " " << col << " " << image1.channels() << endl;
 
