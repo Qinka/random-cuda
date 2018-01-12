@@ -25,6 +25,8 @@ int main(int argc, char* argv[]) {
   cv::resize(image2,image2,cv::Size(image1.rows,image1.cols));
 
 
+  int row = image1.rows * image1.channels();
+  int col = image1.cols * image1.channels();
 
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
@@ -47,9 +49,6 @@ int main(int argc, char* argv[]) {
     sc1 >> c1;
     sc2 >> c2;
   }
-
-  int row = image1.rows * image1.channels();
-  int col = image1.cols * image1.channels();
 
   int rt = linearCombination(c1,image1.data,c2,image2.data,row * col,out.data);
 
