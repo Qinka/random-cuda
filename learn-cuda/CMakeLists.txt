@@ -28,3 +28,8 @@ target_link_libraries(test-lb-gpu qinkalc-gpu)
 add_executable(img-lb source/img-lb.cc)
 target_link_libraries(img-lb qinkalc)
 target_link_libraries(img-lb ${OpenCV_LIBS})
+
+
+add_executable(img-lb-gpu source/img-lb.cc)
+target_link_libraries(img-lb qinkalc-gpu)
+target_link_libraries(img-lb ${OpenCV_LIBS})
