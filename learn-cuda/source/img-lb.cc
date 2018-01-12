@@ -42,14 +42,14 @@ int main(int argc, char* argv[]) {
       cout << setw(4) << image1.data[i*col+j];
     cout << endl;
   }
-  count << " + " << endl;
+  cout << " + " << endl;
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
       cout << setw(4) << image2.data[i*col+j];
     cout << endl;
   }
 
-  count << " + " << endl;
+  cout << " + " << endl;
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
       cout << setw(4) << out.data[i*col+j];
