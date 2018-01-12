@@ -29,6 +29,9 @@ int main(int argc, char* argv[]) {
     sc1 >> c1;
     sc2 >> c2;
   }
-  linearCombination(c1,image1.data,c2,image2.data,image1.cols * image1.rows,out.data);
+
+  int rt = linearCombination(c1,image1.data,c2,image2.data,image1.cols * image1.rows,out.data);
+
+  cerr << "rt code: " << rt <<endl;
   cv::imwrite(argv[3],out);
 }
