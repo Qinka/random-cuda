@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
       cout << setw(4) << dec << (int)image1.data[i*col+j];
     cout << endl;
   }
+
   cout << " + " << endl;
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
@@ -49,7 +50,7 @@ int main(int argc, char* argv[]) {
 
   cv::Mat out = image1.clone();
   float c1 = 1;
-  float c2 = 2;
+  float c2 = 1;
   if (argc >= 6) {
     istringstream sc1(argv[4]);
     istringstream sc2(argv[4]);
