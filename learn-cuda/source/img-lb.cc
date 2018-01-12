@@ -4,7 +4,8 @@
 #include <opencv2/opencv.hpp>
 
 #include <iostream>
-#include <cstring>
+#include <string.h>
+#include <linear-combination.h>
 
 using std::cout;
 using std::cerr;
@@ -18,14 +19,14 @@ int main(int argc, char* argv[]) {
   }
   cv::Mat image1 = cv::imread(argv[1],cv::IMREAD_UNCHANGED);
   cv::Mat image2 = cv::imread(argv[2],cv::IMREAD_UNCHANGED);
-  cv::resize(image2,image2,cv::Size(image1.rows,image1.cols);
+  cv::resize(image2,image2,cv::Size(image1.rows,image1.cols));
   cv::Mat out = image1.clone();
   float c1 = 1;
   float c2 = 2;
   if (argc >= 6) {
-    std::sscanf(argv[4],"%f",&c1);
-    std::sscanf(argv[5],"%f",&c2);
+    sscanf(argv[4],"%f",&c1);
+    sscanf(argv[5],"%f",&c2);
   }
-  linearCombination(c1,image1.data,c2,image2.data,image1.cows * image1.rows,out.data);
-  cv::imwrite(argv[3],out)
+  linearCombination(c1,image1.data,c2,image2.data,image1.cols * image1.rows,out.data);
+  cv::imwrite(argv[3],out);
 }
