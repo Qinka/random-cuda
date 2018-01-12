@@ -3,7 +3,9 @@
 
 ## Setting CMake
 cmake_minimum_required(VERSION 3.3)
-find_package(CUDA REQUIRED)
+find_package(CUDA REQUIRED)s
+find_package(OpenCV REQUIRED )
+
 
 project(cuda-learn)
 
@@ -22,3 +24,7 @@ target_link_libraries(test-lb qinkalc)
 
 add_executable(test-lb-gpu source/test-lb.cc)
 target_link_libraries(test-lb-gpu qinkalc-gpu)
+
+add_executable(img-lb img-lb.cc)
+target_link_libraries(img-lb qinka-lc)
+target_link_libraries(img-lb ${OpenCV_LIBS})
