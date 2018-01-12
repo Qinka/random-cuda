@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 
 
   int row = image1.rows * image1.channels();
-  int col = image1.cols * image1.channels();
+  int col = image1.cols;
 
   cerr << row << " " << col << " " << image1.channels() << endl;
 
