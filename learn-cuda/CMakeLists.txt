@@ -25,6 +25,6 @@ target_link_libraries(test-lb qinkalc)
 add_executable(test-lb-gpu source/test-lb.cc)
 target_link_libraries(test-lb-gpu qinkalc-gpu)
 
-add_executable(img-lb img-lb.cc)
+add_executable(img-lb source/img-lb.cc)
 target_link_libraries(img-lb qinka-lc)
 target_link_libraries(img-lb ${OpenCV_LIBS})
