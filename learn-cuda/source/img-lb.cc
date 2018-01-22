@@ -7,6 +7,8 @@
 #include <iomanip>
 #include <sstream>
 #include <linear-combination.h>
+#include <io.h>
+#include <stdio.h>
 
 using std::cout;
 using std::cerr;
@@ -16,6 +18,9 @@ using std::setw;
 using std::dec;
 
 int main(int argc, char* argv[]) {
+
+  bool log_out = _isatty(_fileno(stdout));
+  cerr << log_out << endl;
   if (argc < 3) {
     cerr << "usage: " << argv[0] << " <img-in1> <img-in2> <img-out> [c1] [c2]" << endl;
     return -1;
@@ -35,17 +40,19 @@ int main(int argc, char* argv[]) {
 
   cerr << row << " " << col << " " << image1.channels() << endl;
 
-  for (int i = 0; i < row; ++i) {
-    for (int j = 0; j < col; ++j)
-      cout << setw(4) << dec << (int)image1.data[i*col+j];
-    cout << endl;
-  }
-
-  cout << " + " << endl;
-  for (int i = 0; i < row; ++i) {
-    for (int j = 0; j < col; ++j)
-      cout << setw(4) << dec << (int)image2.data[i*col+j];
-    cout << endl;
+  if(log_out) {
+    for (int i = 0; i < row; ++i) {
+      for (int j = 0; j < col; ++j)
+        cout << setw(4) << dec << (int)image1.data[i*col+j];
+      cout << endl;
+    }
+    
+    cout << " + " << endl;
+    for (int i = 0; i < row; ++i) {
+      for (int j = 0; j < col; ++j)
+        cout << setw(4) << dec << (int)image2.data[i*col+j];
+      cout << endl;
+    }
   }
 
   cv::Mat out = image1.clone();
@@ -58,17 +65,18 @@ int main(int argc, char* argv[]) {
     sc2 >> c2;
     cerr << c1 << " " << c2 << endl;
   }
-
   int rt = linearCombination(c1,image1.data,c2,image2.data,row * col,out.data);
 
-
-  cout << " + " << endl;
-  for (int i = 0; i < row; ++i) {
-    for (int j = 0; j < col; ++j)
-      cout << setw(4) << dec << (int)out.data[i*col+j];
-    cout << endl;
-  }
-
+  
+  if(log_out){
+    cout << " = " << endl;
+    for (int i = 0; i < row; ++i) {
+      for (int j = 0; j < col; ++j)
+        cout << setw(4) << dec << (int)out.data[i*col+j];
+      cout << endl;
+    }
+ }
   cerr << "rt code: " << rt <<endl;
   cv::imwrite(argv[3],out);
+  return 0;
 }
