@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+
+
 int main() {
   int nDevices;
 
@@ -26,6 +28,7 @@ int main() {
     printf("\tManaged memory: %d\n", prop.managedMemory);
     printf("\tConst memory: %lu bytes\n",prop.totalConstMem);
     printf("\tGlobal memory: %lu bytes\n",prop.totalGlobalMem);
+    printf("\tCores: %d\n", prop.multiProcessorCount);
     printf("\n");
   }
 }
