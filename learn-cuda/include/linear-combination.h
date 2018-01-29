@@ -40,4 +40,7 @@ EXPORT_C_API
 int linearCombination(float coe1, uint8_t* m1, float coe2, uint8_t* m2, int _size, uint8_t* m3);
 
 
+EXPORT_C_API
+void qinkalc_link_test();
+
 #endif // _LINEAR_COMBINATION_H_
