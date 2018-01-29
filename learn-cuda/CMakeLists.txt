@@ -33,3 +33,23 @@ target_link_libraries(img-lb ${OpenCV_LIBS})
 add_executable(img-lb-gpu source/img-lb.cc)
 target_link_libraries(img-lb-gpu qinkalc-gpu)
 target_link_libraries(img-lb-gpu ${OpenCV_LIBS})
+
+configure_file(
+    "${PROJECT_SOURCE_DIR}/qinkalc.pc.in"
+    "${PROJECT_BINARY_DIR}/qinkalc.pc"
+    @ONLY
+)
+
+configure_file(
+    "${PROJECT_SOURCE_DIR}/qinkalc-gpu.pc.in"
+    "${PROJECT_BINARY_DIR}/qinkalc-gpu.pc"
+    @ONLY
+)
+
+install(TARGETS qinkalc qinkalc-gpu test-lb test-lb-gpu img-lb img-lb-gpu
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+)
+install(FILES   "${PROJECT_BINARY_DIR}/qinkalc.pc"
+                "${PROJECT_BINARY_DIR}/qinkalc-gpu.pc"
+        DESTINATION lib/pkg-config)

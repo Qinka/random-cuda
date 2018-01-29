@@ -1,0 +1,9 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+
+Name: qinka linear combination library
+Description: The foo library
+Version: 1.0.0
+Libs: -L${libdir} -lqinkalc
