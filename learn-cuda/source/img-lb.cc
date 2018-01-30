@@ -7,8 +7,16 @@
 #include <iomanip>
 #include <sstream>
 #include <linear-combination.h>
-#include <io.h>
 #include <stdio.h>
+
+
+#ifdef WIN32
+#  include <io.h>
+#  define isatty(x) _isatty(x)
+#  define fileno(x) _fileno(x)
+#else
+#  include <unistd.h>
+#endif
 
 using std::cout;
 using std::cerr;
@@ -19,7 +27,7 @@ using std::dec;
 
 int main(int argc, char* argv[]) {
 
-  bool log_out = _isatty(_fileno(stdout));
+  bool log_out = isatty(fileno(stdout));
   cerr << log_out << endl;
   if (argc < 3) {
     cerr << "usage: " << argv[0] << " <img-in1> <img-in2> <img-out> [c1] [c2]" << endl;
