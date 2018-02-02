@@ -6,15 +6,30 @@
 > do not support to compile x86), and fix the bug for might missing 
 > `CMAKE_FIND_LIBRARY_SUFFIXES` and `CMAKE_FIND_LIBRARY_PREFIXES`.
 > ```
-> cmake -D CUDA_CUDART_LIBRARY=/usr/local/cuda/lib64/libcudart.so -D CMAKE_FIND_LIBRARY_SUFFIXES= -D CMAKE_FIND_LIBRARY_PREFIXES= -DCUDA_64_BIT_DEVICE_CODE=ON  CMAKE_FIND_LIBRARY_SUFFIXES ..
+> cmake .. \
+> -D CUDA_CUDART_LIBRARY=/usr/local/cuda/lib64/libcudart.so \
+> -D CMAKE_FIND_LIBRARY_SUFFIXES= \
+> -D CMAKE_FIND_LIBRARY_PREFIXES= \
+> -DCUDA_64_BIT_DEVICE_CODE=ON
 > ```
 >
-> On Windows, you might need to run 
+> On Windows, you might need to run (powershell)
 > ```
-> cmake.exe -D CUDA_CUDART_LIBRARY='C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\lib\x64\cudart.lib' -D CMAKE_FIND_LIBRARY_SUFFIXES= -DCMAKE_FIND_LIBRARY_PREFIXES= -DCUDA_64_BIT_DEVICE_CODE=ON .. -G 'Visual Studio 15 2017 Win64' -T v140,host=x64
+> cmake.exe .. \
+> -D CUDA_CUDART_LIBRARY='C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\lib\x64\cudart.lib' \
+> -D CMAKE_FIND_LIBRARY_SUFFIXES=
+> -DCMAKE_FIND_LIBRARY_PREFIXES= \
+> -DCUDA_64_BIT_DEVICE_CODE=ON \
+> -G 'Visual Studio 15 2017 Win64' -T v140,host=x64
 > ```
 >
-> If your OpenCV can not bu found, you might need to run
+> If your OpenCV can not bu found, you might need to run(powershell)
 > ```
-> cmake.exe -D CUDA_CUDART_LIBRARY='C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\lib\x64\cudart.lib' -D CMAKE_FIND_LIBRARY_SUFFIXES= -DCMAKE_FIND_LIBRARY_PREFIXES= -DCUDA_64_BIT_DEVICE_CODE=ON .. -G 'Visual Studio 15 2017 Win64' -T v140,host=x64 -DOpenCV_DIR='C:\opencv\build'
+> cmake.exe ..\
+> -D CUDA_CUDART_LIBRARY='C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\lib\x64\cudart.lib' \
+> -D CMAKE_FIND_LIBRARY_SUFFIXES= \
+> -D CMAKE_FIND_LIBRARY_PREFIXES= \
+> -D CUDA_64_BIT_DEVICE_CODE=ON \
+> -D OpenCV_DIR='C:\opencv\build' \
+> -G 'Visual Studio 15 2017 Win64' -T v140,host=x64 
 > ```

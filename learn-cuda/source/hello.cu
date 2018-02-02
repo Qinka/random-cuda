@@ -1,4 +1,7 @@
-#include <stdio.h>
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 
 
@@ -6,29 +9,89 @@ int main() {
   int nDevices;
 
   cudaGetDeviceCount(&nDevices);
-  printf("Hello, CUDA!\n");
+  cout << "Hello, CUDA!" << endl;
   for(int i = 0; i < nDevices; ++i) {
     cudaDeviceProp prop;
     cudaGetDeviceProperties(&prop,i);
-    printf("Device number: %d\ (pci bus id: %d; pci device id: %d; pci domain id: %d)\n",i,prop.pciBusID,prop.pciDeviceID,prop.pciDomainID);
-    printf("\tDevice name: %s\n",prop.name);
-    printf("\tClock rate: %d kHz\n",prop.clockRate);
-    printf("\tL2 cache size: %d bytes\n",prop.l2CacheSize);
-    printf("\tConcurrent kernels: %d\n",prop.concurrentKernels);
-    printf("\tIs multi-GPU board: %s\n",prop.isMultiGpuBoard?"yes":"no");
-    printf("\tCompute capability: %d.%d\n",prop.major,prop.minor);
-    printf("\tMax Grid size: %d\n", *prop.maxGridSize);
-    printf("\tMax thread dim: %d\n",*prop.maxThreadsDim);
-    printf("\tMax thread per block: %d\n", prop.maxThreadsPerBlock);
-    printf("\tMax thread per multiprocessor: %d\n",prop.maxThreadsPerMultiProcessor);
-    printf("\tMemory clock rate: %d kHz\n",prop.memoryClockRate);
-    printf("\tMemory bus width: %d bits\n",prop.memoryBusWidth);
-    printf("\tPeak memory bandwidth: %f GB/s\n",2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
-    printf("\tMemory copy pitch: %lu bytes\n",prop.memPitch);
-    printf("\tManaged memory: %d\n", prop.managedMemory);
-    printf("\tConst memory: %lu bytes\n",prop.totalConstMem);
-    printf("\tGlobal memory: %lu bytes\n",prop.totalGlobalMem);
-    printf("\tCores: %d\n", prop.multiProcessorCount);
-    printf("\n");
+    cout << "Device number: " << i
+         << " (pci bus id: " << prop.pciBusID
+         << "; pci device id: " << prop.pciDeviceID
+         << "; pci domain id: " << prop.pciDomainID
+         << ")" << endl;
+    cout << "\tDevice name: " << prop.name << endl;
+    cout << "\tClock rate: " << prop.clockRate << " kHz" << endl;
+    cout << "\tL2 cache size: " << prop.l2CacheSize << "bytes" << endl;
+    cout << "\tConcurrent kernels: " << prop.concurrentKernels << endl;
+    cout << "\tIs multi-GPU board: " << (prop.isMultiGpuBoard ? "yes" : "no") << endl;
+    cout << "\tCompute capability: " << prop.major << "." << prop.minor << endl;
+    cout << "\tMax Grid size(x,y,z): "
+         << prop.maxGridSize[0] << ", "
+         << prop.maxGridSize[1] << ", "
+         << prop.maxGridSize[2] << endl;
+    cout << "\tMax thread dim: "
+         << prop.maxThreadsDim[0] << ", "
+         << prop.maxThreadsDim[1] << ", "
+         << prop.maxThreadsDim[2] << endl;
+    cout << "\tMax thread per block: " << prop.maxThreadsPerBlock << endl;
+    cout << "\tMax thread per multiprocessor: " << prop.maxThreadsPerMultiProcessor << endl;
+    cout << "\tMemory clock rate: " << prop.memoryClockRate << " kHz" << endl;
+    cout << "\tMemory bus width: " << prop.memoryBusWidth << " bits" << endl;
+    cout << "\tPeak memory bandwidth: "
+         << 2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6
+         << " GB/s" << endl;
+    cout << "\tMemory copy pitch: " << prop.memPitch << " bytes" << endl;
+    cout << "\tManaged memory: " << prop.managedMemory << endl;
+    cout << "\tConst memory: " << prop.totalConstMem << " bytes" << endl;
+    cout << "\tGlobal memory: " << prop.totalGlobalMem << " bytes" << endl;
+    cout << "\tShared memory per block: " << prop.sharedMemPerBlock << endl;
+    cout << "\tPer device maximum shared memory per block usable by special opt in: "
+         << prop.sharedMemPerBlockOptin << endl;
+    cout << "\tShared memory available per multiprocessor in bytes: "
+         << prop.sharedMemPerMultiprocessor << endl;
+    cout << "\tCores: " << prop.multiProcessorCount << endl;
+    cout << "\tNumber of asynchronous engines: " << prop.asyncEngineCount << endl;
+    cout << "\tDevice can map host memory with cudaHostAlloc/cudaHostGetDevicePointer:"
+         << (prop.canMapHostMemory ? "yes" : "no") << endl;
+    cout << "\tDevice can access host registered memory at the same virtual address as the CPU"
+         << prop.canUseHostPointerForRegisteredMem << endl;
+    cout << "\tComputing mode: " << prop.computeMode << endl;
+    cout << "\tDevice supports Compute Preemption: " << prop.computePreemptionSupported << endl;
+    cout << "\tDevice can possibly execute multiple kernels concurrently: "
+         << prop.concurrentKernels << endl;
+    cout << "\tDevice can coherently access managed memory concurrently with the CPU: "
+         << prop.concurrentManagedAccess << endl;
+    cout << "\tDevice supports launching cooperative kernels via cudaLaunchCooperativeKernel: "
+         << prop.cooperativeLaunch << endl;
+    cout << "\tDevice can participate in cooperative kernels launched via cudaLaunchCooperativeKernelMultiDevice "
+         << prop.cooperativeMultiDeviceLaunch << endl;
+    cout << "\tDevice can concurrently copy memory and execute a kernel. Deprecated. Use instead asyncEngineCount: "
+         << prop.deviceOverlap << endl;
+    cout << "\tDevice has ECC support enabled: " << (prop.ECCEnabled ? "yes" : "no") << endl;
+    cout << "\tDevice supports caching globals in L1:"
+         << (prop.globalL1CacheSupported ? "yes" : "no") << endl;
+    cout << "\tLink between the device and the host supports native atomic operations"
+         << (prop.hostNativeAtomicSupported ? "yes" : "no") << endl;
+    cout << "\tDevice is integrated as opposed to discrete:"
+         << (prop.integrated ? "yes" : "no") << endl;
+    cout << "\tSpecified whether there is a run time limit on kernels"
+         << prop.kernelExecTimeoutEnabled << endl;
+    cout << "\tDevice supports caching locals in L1: "
+         << (prop.localL1CacheSupported ? "yes" : "no") << endl;
+    cout << "\tUnique identifier for a group of devices on the same multi-GPU board: "
+         << prop.multiGpuBoardGroupID << endl;
+    cout << "\tDevice supports coherently accessing pageable memory without calling cudaHostRegister on it: " << (prop.pageableMemoryAccess ? "yes" : "no") << endl;
+    cout << "\t32-bit registers available per block: " << prop.regsPerBlock << endl;
+    cout << "\t32-bit registers available per multiprocessor"
+         << prop.regsPerMultiprocessor << endl;
+    cout << "\tRatio of single precision performance (in floating-point operations per second) to double precision performance"
+         << prop.singleToDoublePrecisionPerfRatio << endl;
+    cout << "\tDevice supports stream priorities"
+         << (prop.streamPrioritiesSupported ? "yes" : "no") << endl;
+    cout << "\tWhether device is a Tesla device using TCC driver:"
+         << (prop.tccDriver ? "yes" : "no") << endl;
+    cout << "\tDevice shares a unified address space with the host: "
+         << prop.unifiedAddressing << endl;
+    cout << "\tWarp size in threads " << prop.warpSize << endl;
+    cout << endl;
   }
 }
