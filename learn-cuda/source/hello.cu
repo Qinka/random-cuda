@@ -44,26 +44,36 @@ int main() {
     cout << "\tConst memory: " << prop.totalConstMem << " bytes" << endl;
     cout << "\tGlobal memory: " << prop.totalGlobalMem << " bytes" << endl;
     cout << "\tShared memory per block: " << prop.sharedMemPerBlock << endl;
+#if __CUDA_ARCH__ >= 900
     cout << "\tPer device maximum shared memory per block usable by special opt in: "
          << prop.sharedMemPerBlockOptin << endl;
+#endif
     cout << "\tShared memory available per multiprocessor in bytes: "
          << prop.sharedMemPerMultiprocessor << endl;
     cout << "\tCores: " << prop.multiProcessorCount << endl;
     cout << "\tNumber of asynchronous engines: " << prop.asyncEngineCount << endl;
     cout << "\tDevice can map host memory with cudaHostAlloc/cudaHostGetDevicePointer:"
          << (prop.canMapHostMemory ? "yes" : "no") << endl;
+#if __CUDA_ARCH__ >= 900
     cout << "\tDevice can access host registered memory at the same virtual address as the CPU"
          << prop.canUseHostPointerForRegisteredMem << endl;
+#endif
     cout << "\tComputing mode: " << prop.computeMode << endl;
+
+#if __CUDA_ARCH__ >= 900
     cout << "\tDevice supports Compute Preemption: " << prop.computePreemptionSupported << endl;
+#endif
     cout << "\tDevice can possibly execute multiple kernels concurrently: "
          << prop.concurrentKernels << endl;
     cout << "\tDevice can coherently access managed memory concurrently with the CPU: "
          << prop.concurrentManagedAccess << endl;
+
+#if __CUDA_ARCH__ >= 900
     cout << "\tDevice supports launching cooperative kernels via cudaLaunchCooperativeKernel: "
          << prop.cooperativeLaunch << endl;
     cout << "\tDevice can participate in cooperative kernels launched via cudaLaunchCooperativeKernelMultiDevice "
          << prop.cooperativeMultiDeviceLaunch << endl;
+#endif
     cout << "\tDevice can concurrently copy memory and execute a kernel. Deprecated. Use instead asyncEngineCount: "
          << prop.deviceOverlap << endl;
     cout << "\tDevice has ECC support enabled: " << (prop.ECCEnabled ? "yes" : "no") << endl;
